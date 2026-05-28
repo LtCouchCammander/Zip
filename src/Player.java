@@ -7,48 +7,40 @@ public class Player {
         this.size = size;
     }
 
-    public void moveLeft(Boundary boundary) {
-        int newX;
-        if (position.X() < 1) {
-            newX = boundary.getGridWidth() - size.width();
+    public void moveLeft() {
+        if (position.X() < 1) { // If position is at boundary, it cannot move left and remains in the same position.
+            position.setPosition(position.X(), position.Y());
         }
-        else {
-            newX = position.X() - 1;
+        else { // Player moves left...
+            position.setPosition(position.X() - 1, position.Y());
         }
-        position.setPosition(newX, position.Y());
     }
 
     public void moveRight(Boundary boundary) {
-        int newX;
-        if (position.X() + size.width() > boundary.getGridWidth() - 1) {
-            newX = 0;
+        if (position.X() + size.width() > boundary.getGridWidth() - 1) { // If position is at boundary, it cannot move right and remains in the same position.
+            position.setPosition(position.X(), position.Y());
         }
-        else {
-            newX = position.X() + 1;
+        else { // Player moves right...
+            position.setPosition(position.X() + 1, position.Y());
         }
-        position.setPosition(newX, position.Y());
     }
 
-    public void moveUp(Boundary boundary) {
-        int newY;
-        if (position.Y() < 1) {
-            newY = boundary.getGridHeight() - size.height();
+    public void moveUp() {
+        if (position.Y() < 1) { // If position is at boundary, it cannot move up and remains in the same position.
+            position.setPosition(position.X(), position.Y());
         }
-        else {
-            newY = position.Y() - 1;
+        else { // Player moves up...
+            position.setPosition(position.X(), position.Y() - 1);
         }
-        position.setPosition(position.X(), newY);
     }
 
     public void moveDown(Boundary boundary) {
-        int newY;
         if (position.Y() + size.height() > boundary.getGridHeight() - 1) {
-            newY = 0;
+            position.setPosition(position.X(), position.Y());
         }
         else {
-            newY = position.Y() + 1;
+            position.setPosition(position.X(), position.Y() + 1);
         }
-        position.setPosition(position.X(), newY);
     }
 
     public Position getPosition() {

@@ -67,13 +67,13 @@ public class Game {
 
         // respond to input for player
         if (inputState.isLeftPressed()) {
-            player.moveLeft(boundary);
+            player.moveLeft();
         }
         if (inputState.isRightPressed()) {
             player.moveRight(boundary);
         }
         if (inputState.isUpPressed()) {
-            player.moveUp(boundary);
+            player.moveUp();
         }
         if (inputState.isDownPressed()) {
             player.moveDown(boundary);
