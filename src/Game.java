@@ -6,14 +6,12 @@ public class Game {
 
     // The graphical user interface (GUI) for the game
     private GridCanvas canvas;
-
     // Tracks which keys are currently pressed. Updated in the main loop.
     private InputState inputState;
-
+    // Grid Boundary (i assume)
     private Boundary boundary;
 
     private Player player;
-    private Enemy enemy;
     private ArrayList<Position> coinPositions;
 
     public Game() {
@@ -21,14 +19,13 @@ public class Game {
         // EXAMPLE GAME/SIMULATION STATE
         // =========================================
 
-        player = new Player(new Position(5, 15), new Size(2, 2));
-        enemy = new Enemy(new Position(8, 8), new Size(3, 3));
+        player = new Player(new Position(0, 0), new Size(1, 1));
 
         // number of rows and columns
-        boundary = new Boundary(32, 32);
+        boundary = new Boundary(10, 10);
 
         // Create drawing canvas
-        canvas = new GridCanvas(boundary, 10, "GridCanvas Example");
+        canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
     }
 
@@ -83,30 +80,33 @@ public class Game {
         }
 
         // logic to move enemy automatically
-        enemy.moveLeft(boundary);
+        //enemy.moveLeft(boundary);
 
         // Example of creating an ArrayList of coins
+        /*
         coinPositions = new ArrayList<Position>();
         coinPositions.add(new Position(1, 1));
         coinPositions.add(new Position(8, 5));
         coinPositions.add(new Position(11, 5));
         coinPositions.add(new Position(14, 5));
+
+         */
     }
 
     private void redrawVisuals() {
         canvas.clear();
 
         // Player
-        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.RED, GridCanvas.DrawStyle.FILLED);
+        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
 
         // Enemy
-        canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);
+        //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);
 
         // Drawing Coins from an ArrayList
-        canvas.drawOvals(coinPositions, new Size(1, 1), Color.YELLOW, GridCanvas.DrawStyle.FILLED);
+        //canvas.drawOvals(coinPositions, new Size(1, 1), Color.YELLOW, GridCanvas.DrawStyle.FILLED);
 
         // Line example
-        canvas.drawLine(new Position(0, 0), new Position(8, 5), Color.BLACK);
+        //canvas.drawLine(new Position(0, 0), new Position(8, 5), Color.BLACK);
 
         canvas.redraw();
     }
