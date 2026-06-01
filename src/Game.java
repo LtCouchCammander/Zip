@@ -63,7 +63,7 @@ public class Game {
             // PART 3: PAUSE MOMENTARILY EVERY LOOP
             // -------------------------------------
             try {
-                Thread.sleep(120);
+                Thread.sleep(100);
                 } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -134,14 +134,13 @@ public class Game {
 
     private void redrawVisuals() {
         canvas.clear();
+        // Previous player moves
+        for (Position prevPosition : history.seeTrail()) {
+            canvas.drawRectangle(prevPosition, player.getSize(), Color.RED, GridCanvas.DrawStyle.FILLED);
+        }
 
         // Player
         canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
-
-        // Previous player moves
-        for (Position prevPosition : history.seeTrail()) {
-            canvas.drawRectangle(prevPosition, player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
-        }
 
         // Enemy
         //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);

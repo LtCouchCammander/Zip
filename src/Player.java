@@ -15,10 +15,15 @@ public class Player {
             position.setPosition(position.X() - 1, position.Y());
         }
         else {
+            boolean positionFilled = false;
             for (Position i : history.seeTrail()) { // Checks to see if players desired location has already been filled.
-                if (i.X() != position.X() - 1 && i.Y() != position.Y()) {
-                    position.setPosition(position.X() - 1, position.Y());
+                if (i.X() == position.X() - 1 || i.Y() == position.Y()) {
+                    positionFilled = true;
+                    break;
                 }
+            }
+            if (positionFilled) {
+                position.setPosition(position.X() - 1, position.Y());
             }
         }
     }
@@ -31,10 +36,15 @@ public class Player {
             position.setPosition(position.X() + 1, position.Y());
         }
         else {
+            boolean positionFilled = false;
             for (Position i : history.seeTrail()) { // Checks to see if players desired location has already been filled.
-                if (i.X() != position.X() + 1 || i.Y() != position.Y()) {
-                    position.setPosition(position.X() + 1, position.Y());
+                if (i.X() == position.X() + 1 || i.Y() == position.Y()) {
+                    positionFilled = true;
+                    break;
                 }
+            }
+            if (positionFilled) {
+                position.setPosition(position.X() + 1, position.Y());
             }
         }
     }
@@ -47,10 +57,15 @@ public class Player {
             position.setPosition(position.X(), position.Y() - 1);
         }
         else { // Player moves up...
+            boolean positionFilled = false;
             for (Position i : history.seeTrail()) {
-                if (i.X() != position.X() && i.Y() != position.Y() - 1) {
-                    position.setPosition(position.X(), position.Y() - 1);
+                if (i.X() == position.X() || i.Y() == position.Y() - 1) {
+                    positionFilled = true;
+                    break;
                 }
+            }
+            if (positionFilled) {
+                position.setPosition(position.X(), position.Y() - 1);
             }
         }
     }
@@ -63,10 +78,16 @@ public class Player {
             position.setPosition(position.X(), position.Y() + 1);
         }
         else {
+            boolean positionFilled = false;
+
             for (Position i : history.seeTrail()) {
-                if (i.X() != position.X() && i.Y() != position.Y() + 1) {
-                    position.setPosition(position.X(), position.Y() + 1);
+                if (i.X() == position.X() || i.Y() == position.Y() + 1) {
+                    positionFilled = true;
+                    break;
                 }
+            }
+            if (positionFilled) {
+                position.setPosition(position.X(), position.Y() + 1);
             }
         }
     }
