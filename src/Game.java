@@ -24,6 +24,8 @@ public class Game {
         player = new Player(new Position(0, 0), new Size(1, 1));
 
         history = new Tracking();
+        // Places the default player position into tracking
+        history.save(player.getPosition());
 
         // number of rows and columns
         boundary = new Boundary(10, 10);
@@ -43,7 +45,7 @@ public class Game {
             // =========================================
             // PART 0: SAVE GAME STATE
             // =========================================
-            saveGameState();
+            //saveGameState();
 
             // =========================================
             // PART 1: UPDATE GAME STATE (LOGIC ONLY)
@@ -75,6 +77,10 @@ public class Game {
     private void saveGameState() {
         // info comming soon
     }
+              // Record Position
+    private void recPos() {
+        history.save(player.getPosition());
+    }
 
     private void updateGameState() {
         // get input
@@ -96,20 +102,25 @@ public class Game {
         }
 
          */
-        // Use of if else if prevents diagonal movement,
+        // Use of if else if prevents diagonal movement.
         if (inputState.isLeftPressed()) {
-            player.moveLeft();
+            player.moveLeft(history);
+            recPos();
         } else if (inputState.isRightPressed()) {
-            player.moveRight(boundary);
+            player.moveRight(boundary, history);
+            recPos();
         } else if (inputState.isUpPressed()) {
-            player.moveUp();
+            player.moveUp(history);
+            recPos();
         } else if (inputState.isDownPressed()) {
-            player.moveDown(boundary);
+            player.moveDown(boundary, history);
+            recPos();
         }
+        // Saves new position after the move.
+
 
         // logic to move enemy automatically
         //enemy.moveLeft(boundary);
-
         // Example of creating an ArrayList of coins
         /*
         coinPositions = new ArrayList<Position>();
@@ -126,6 +137,11 @@ public class Game {
 
         // Player
         canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
+
+        // Previous player moves
+        for (Position prevPosition : history.seeTrail()) {
+            canvas.drawRectangle(prevPosition, player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
+        }
 
         // Enemy
         //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);

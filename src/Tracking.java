@@ -1,12 +1,27 @@
-import java.util.Stack;
+import java.util.LinkedList;
 public class Tracking {
-    Stack<Integer> X;
-    Stack<Integer> Y;
+    private LinkedList<Position> trail;
 
     public Tracking() {
-        X = new Stack<>();
-        Y = new Stack<>();
+        trail = new LinkedList<>();
     }
 
+    public void save(Position pos) {
+        trail.addLast(new Position(pos.X(), pos.Y()));
+    }
 
+    /*
+    public boolean checkLastPos(Position pos) {
+        if (trail.getLast().X() == pos.X() - 1 && trail.getLast().Y() == pos.Y()) {
+            trail.removeLast();
+            return true;
+        }
+        return false;
+    }
+     */
+
+
+    public LinkedList<Position> seeTrail() {
+        return trail;
+    }
 }
