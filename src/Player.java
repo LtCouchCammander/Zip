@@ -51,6 +51,7 @@ public class Player {
         }
     }
 
+
     public void moveUp(Tracking history) {
         if (position.Y() < 1) { // If position is at boundary, it cannot move up and remains in the same position.
             position.setPosition(position.X(), position.Y());

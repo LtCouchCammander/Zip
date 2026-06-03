@@ -43,11 +43,6 @@ public class Game {
 
         while (true) {
             // =========================================
-            // PART 0: SAVE GAME STATE
-            // =========================================
-            //saveGameState();
-
-            // =========================================
             // PART 1: UPDATE GAME STATE (LOGIC ONLY)
             // =========================================
             updateGameState();

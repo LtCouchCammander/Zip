@@ -10,8 +10,6 @@ public class Main {
     Player must be able to back track. DONE
     There must be a timer until completion.
     Player must go over certain positions labeled 1 to 10 in order from least to greatest.
-
-
      */
     public static void main(String[] args) {
         Game game = new Game();

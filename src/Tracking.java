@@ -14,7 +14,7 @@ public class Tracking {
         if (trail.size() >= 2) {
             return trail.get(trail.size() - 2);
         }
-        return trail.getLast(); // Dont think it will ever use this. Just a filler.
+        return trail.getLast(); // Don't think it will ever use this. Just a filler.
     }
 
     public LinkedList<Position> seeTrail() {
