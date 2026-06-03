@@ -1,8 +1,8 @@
 import java.util.LinkedList;
-public class Tracking {
+public class Tracker {
     private LinkedList<Position> trail;
 
-    public Tracking() {
+    public Tracker() {
         trail = new LinkedList<>();
     }
 

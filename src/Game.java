@@ -14,7 +14,7 @@ public class Game {
     private Player player;
     private ArrayList<Position> coinPositions;
 
-    private Tracking history;
+    private Tracker history;
 
     public Game() {
         // =========================================
@@ -23,7 +23,7 @@ public class Game {
 
         player = new Player(new Position(0, 0), new Size(1, 1));
 
-        history = new Tracking();
+        history = new Tracker();
         // Places the default player position into tracking
         history.save(player.getPosition());
 

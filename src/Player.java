@@ -7,7 +7,7 @@ public class Player {
         this.size = size;
     }
 
-    public void moveLeft(Tracking history) {
+    public void moveLeft(Tracker history) {
         if (position.X() < 1) { // If position is at boundary, it cannot move left and remains in the same position.
             position.setPosition(position.X(), position.Y());
         } else if (history.get2ndLast().X() == position.X() - 1 && history.get2ndLast().Y() == position.Y()) { // Checks to see if player wants to back track.
@@ -29,7 +29,7 @@ public class Player {
         }
     }
 
-    public void moveRight(Boundary boundary, Tracking history) {
+    public void moveRight(Boundary boundary, Tracker history) {
         if (position.X() + size.width() > boundary.getGridWidth() - 1) { // If position is at boundary, it cannot move right and remains in the same position.
             position.setPosition(position.X(), position.Y());
         } else if (history.get2ndLast().X() == position.X() + 1 && history.get2ndLast().Y() == position.Y()) { // Checks to see if player wants to back track.
@@ -52,7 +52,7 @@ public class Player {
     }
 
 
-    public void moveUp(Tracking history) {
+    public void moveUp(Tracker history) {
         if (position.Y() < 1) { // If position is at boundary, it cannot move up and remains in the same position.
             position.setPosition(position.X(), position.Y());
         } else if (history.get2ndLast().X() == position.X() && history.get2ndLast().Y() == position.Y() - 1) { // Checks to see if player wants to back track.
@@ -74,7 +74,7 @@ public class Player {
         }
     }
 
-    public void moveDown(Boundary boundary, Tracking history) {
+    public void moveDown(Boundary boundary, Tracker history) {
         if (position.Y() + size.height() > boundary.getGridHeight() - 1) { // If position is at boundary, it cannot move up and remains in the same position.
             position.setPosition(position.X(), position.Y());
         } else if (history.get2ndLast().X() == position.X() && history.get2ndLast().Y() == position.Y() + 1) { // Checks to see if player wants to back track.
