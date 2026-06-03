@@ -74,13 +74,6 @@ public class Game {
     // Originally tried stacks (wouldn't really work well since the program redraws all the time, and you can only read off the top).
     // Thought about using array lists to store positions but thought that would take too much work.
     // Going to use linked lists instead with copying the position object... or at least its actual data/positions.
-    private void saveGameState() {
-        // info comming soon
-    }
-              // Record Position
-    private void recPos() {
-        history.save(player.getPosition());
-    }
 
     private void updateGameState() {
         // get input
@@ -105,16 +98,12 @@ public class Game {
         // Use of if else if prevents diagonal movement.
         if (inputState.isLeftPressed()) {
             player.moveLeft(history);
-            recPos();
         } else if (inputState.isRightPressed()) {
             player.moveRight(boundary, history);
-            recPos();
         } else if (inputState.isUpPressed()) {
             player.moveUp(history);
-            recPos();
         } else if (inputState.isDownPressed()) {
             player.moveDown(boundary, history);
-            recPos();
         }
         // Saves new position after the move.
 
@@ -134,12 +123,13 @@ public class Game {
 
     private void redrawVisuals() {
         canvas.clear();
-        // Previous player moves
+
+        // Draws previous players moves.
         for (Position prevPosition : history.seeTrail()) {
             canvas.drawRectangle(prevPosition, player.getSize(), Color.RED, GridCanvas.DrawStyle.FILLED);
         }
 
-        // Player
+        // Draws current player
         canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
 
         // Enemy

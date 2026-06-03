@@ -10,16 +10,12 @@ public class Tracking {
         trail.addLast(new Position(pos.X(), pos.Y()));
     }
 
-    /*
-    public boolean checkLastPos(Position pos) {
-        if (trail.getLast().X() == pos.X() - 1 && trail.getLast().Y() == pos.Y()) {
-            trail.removeLast();
-            return true;
+    public Position get2ndLast() {
+        if (trail.size() >= 2) {
+            return trail.get(trail.size() - 2);
         }
-        return false;
+        return trail.getLast(); // Dont think it will ever use this. Just a filler.
     }
-     */
-
 
     public LinkedList<Position> seeTrail() {
         return trail;
