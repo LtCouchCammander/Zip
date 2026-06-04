@@ -153,6 +153,9 @@ public class GridCanvas extends JPanel {
     // PUBLIC DRAW METHODS
     // =====================================================
 
+    public void drawNumber(PositionNumber pos, Size size, Color color, DrawStyle drawStyle ) {
+    }
+
     /**
      * Draws one rectangle.
      */
@@ -342,6 +345,7 @@ public class GridCanvas extends JPanel {
         drawGrid(g2);
         drawShapes(g2);
         drawLines(g2);
+        drawText(g2);
     }
 
     /**
@@ -420,6 +424,17 @@ public class GridCanvas extends JPanel {
 
             g2.drawLine(startX, startY, endX, endY);
         }
+    }
+
+    private void drawText(Graphics2D g2) {
+        // Prepare to draw text
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", Font.BOLD, 24));
+
+        int x = 8 * cellSize;
+        int y = 4 * cellSize;
+
+        g2.drawString("5", x, y);
     }
 
 
