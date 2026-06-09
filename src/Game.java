@@ -119,6 +119,8 @@ public class Game {
     private void redrawVisuals() {
         canvas.clear();
 
+        canvas.draw
+
         // Draws previous players moves.
         for (Position prevPosition : history.seeTrail()) {
             canvas.drawRectangle(prevPosition, player.getSize(), Color.RED, GridCanvas.DrawStyle.FILLED);

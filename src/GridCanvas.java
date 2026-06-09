@@ -204,6 +204,7 @@ public class GridCanvas extends JPanel {
         }
     }
 
+
     /**
      * Removes all shapes and lines.
      */
@@ -244,7 +245,11 @@ public class GridCanvas extends JPanel {
         DrawableShape shape = new DrawableShape(x, y, width, height, color, shapeType, drawStyle);
         shapes.add(shape);
     }
-
+//
+    //private void addTest(int x, int y, )
+// number to draw
+//colour
+//x, y
     /**
      * Validates grid constructor values.
      */
@@ -434,7 +439,7 @@ public class GridCanvas extends JPanel {
         int x = 8 * cellSize;
         int y = 4 * cellSize;
 
-        g2.drawString("5", x, y);
+        g2.drawString("10", x, y);
     }
 
 
