@@ -22,7 +22,6 @@ public class Game {
 
         player = new Player(new Position(0, 0), new Size(1, 1));
         history = new Tracker();
-        boardCount = new BoardCount();
         // Places the default player position into tracking
         history.save(player.getPosition());
         // number of rows and columns
@@ -30,6 +29,7 @@ public class Game {
         // Create drawing canvas
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
+        boardCount = new BoardCount(boundary, player.getSize());
     }
 
     public void run() {
