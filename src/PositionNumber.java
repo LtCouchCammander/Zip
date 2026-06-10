@@ -1,7 +1,11 @@
 public class PositionNumber extends Position{
-    int Number ;
-    public PositionNumber(int x, int y, int num) {
+    private int number;
+    public PositionNumber(int num, int x, int y) {
         super(x, y);
-        Number = num;
+        number = num;
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

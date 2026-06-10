@@ -10,11 +10,10 @@ public class Game {
     private InputState inputState;
     // Grid Boundary (i assume)
     private Boundary boundary;
-
     private Player player;
     private ArrayList<Position> coinPositions;
-
     private Tracker history;
+    private BoardCount boardCount;
 
     public Game() {
         // =========================================
@@ -22,14 +21,12 @@ public class Game {
         // =========================================
 
         player = new Player(new Position(0, 0), new Size(1, 1));
-
         history = new Tracker();
+        boardCount = new BoardCount();
         // Places the default player position into tracking
         history.save(player.getPosition());
-
         // number of rows and columns
         boundary = new Boundary(10, 10);
-
         // Create drawing canvas
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
@@ -119,7 +116,9 @@ public class Game {
     private void redrawVisuals() {
         canvas.clear();
 
-        canvas.draw
+        for (PositionNumber posNumb : boardCount.getBoardNumbers()) {
+            canvas.drawNumber(posNumb);
+        }
 
         // Draws previous players moves.
         for (Position prevPosition : history.seeTrail()) {

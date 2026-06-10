@@ -43,6 +43,7 @@ public class GridCanvas extends JPanel {
 
     private final List<DrawableShape> shapes;
     private final List<DrawableLine> lines;
+    private final List<DrawableText> texts;
 
     // =====================================================
     // CONSTRUCTOR
@@ -65,6 +66,7 @@ public class GridCanvas extends JPanel {
 
         this.shapes = new ArrayList<GridCanvas.DrawableShape>();
         this.lines = new ArrayList<GridCanvas.DrawableLine>();
+        this.texts = new ArrayList<DrawableText>();
 
         this.window = new JFrame(title);
         window.addKeyListener(new KeyAdapter() {
@@ -153,7 +155,8 @@ public class GridCanvas extends JPanel {
     // PUBLIC DRAW METHODS
     // =====================================================
 
-    public void drawNumber(PositionNumber pos, Size size, Color color, DrawStyle drawStyle ) {
+    public void drawNumber(PositionNumber pos) {
+        addText(pos.getNumber(), pos.X(), pos.Y());
     }
 
     /**
@@ -245,11 +248,12 @@ public class GridCanvas extends JPanel {
         DrawableShape shape = new DrawableShape(x, y, width, height, color, shapeType, drawStyle);
         shapes.add(shape);
     }
-//
-    //private void addTest(int x, int y, )
-// number to draw
-//colour
-//x, y
+
+    private void addText(int numToDraw, int x, int y) {
+        DrawableText text = new DrawableText(numToDraw, x, y);
+        texts.add(text);
+    }
+
     /**
      * Validates grid constructor values.
      */
@@ -432,6 +436,17 @@ public class GridCanvas extends JPanel {
     }
 
     private void drawText(Graphics2D g2) {
+
+        for (DrawableText text : texts) {
+            g2.setColor(Color.BLACK);
+            g2.setFont(new Font("Arial", Font.BOLD, 24));
+            int x = text.x * cellSize;
+            int y = text.y * cellSize;
+
+            g2.drawString(String.valueOf(text.numToDraw), x, y);
+        }
+
+        /*
         // Prepare to draw text
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("Arial", Font.BOLD, 24));
@@ -439,7 +454,11 @@ public class GridCanvas extends JPanel {
         int x = 8 * cellSize;
         int y = 4 * cellSize;
 
-        g2.drawString("10", x, y);
+        String h = String.valueOf(3);
+
+        for ()
+        g2.drawString(String.valueOf(text.), x, y);
+         */
     }
 
 
@@ -509,6 +528,19 @@ public class GridCanvas extends JPanel {
             this.end = end;
 
             this.color = color;
+        }
+    }
+
+    private static class DrawableText {
+        private int x;
+        private int y;
+
+        private int numToDraw;
+
+        public DrawableText(int i, int x, int y) {
+            this.x = x;
+            this.y = y;
+            this.numToDraw = i;
         }
     }
 }
