@@ -14,6 +14,7 @@ public class Game {
     private ArrayList<Position> coinPositions;
     private Tracker history;
     private BoardCount boardCount;
+    private Time time = new Time();
 
     public Game() {
         // =========================================
@@ -30,6 +31,9 @@ public class Game {
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
         boardCount = new BoardCount(boundary, player.getSize());
+
+        time.start();
+
     }
 
     public void run() {

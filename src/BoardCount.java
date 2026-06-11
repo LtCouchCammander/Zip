@@ -28,7 +28,7 @@ public class BoardCount {
     // UP position.Y() < 1
     // DOWN position.Y() + size.height() > boundary.getGridHeight() - 1
 
-
+/*
     public int findPath(int x, int y) {
         ArrayList<Position> tries = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class BoardCount {
                         return findPath(x + size.width(), y);
                     }
                     else {
-                        tries ++
+                        //tries ++
                     }
             }
         }
@@ -64,6 +64,8 @@ public class BoardCount {
 
         }
     }
+
+ */
 
     public ArrayList<PositionNumber> getBoardNumbers() {
         return numbers;
