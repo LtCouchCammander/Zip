@@ -31,6 +31,8 @@ public class Game {
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
         boardCount = new BoardCount(boundary, player.getSize());
+        boardCount.generatePath(0, 0);
+        System.out.println(boardCount.validPath);
 
         time.start();
 

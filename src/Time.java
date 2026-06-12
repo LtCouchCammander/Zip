@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Time extends Thread {
-    private ArrayList<Integer> scoreboard
+    private ArrayList<Integer> scoreboard;
 
     @Override
     public void run() {
