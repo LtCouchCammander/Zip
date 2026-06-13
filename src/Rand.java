@@ -48,3 +48,4 @@ public class Rand
         return rand.nextFloat(maxExclusive - minInclusive) + minInclusive;
     }
 }
+

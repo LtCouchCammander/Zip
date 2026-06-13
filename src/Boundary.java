@@ -15,3 +15,4 @@ public class Boundary {
         return numRows;
     }
 }
+

@@ -9,3 +9,4 @@ public class PositionNumber extends Position{
         return number;
     }
 }
+

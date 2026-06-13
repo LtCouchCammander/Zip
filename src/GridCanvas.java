@@ -214,6 +214,7 @@ public class GridCanvas extends JPanel {
     public void clear() {
         shapes.clear();
         lines.clear();
+        texts.clear();
     }
 
     /**
@@ -544,3 +545,4 @@ public class GridCanvas extends JPanel {
         }
     }
 }
+

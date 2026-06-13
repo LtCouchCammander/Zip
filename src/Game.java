@@ -13,12 +13,12 @@ public class Game {
     private Player player;
     private ArrayList<Position> coinPositions;
     private Tracker history;
-    private BoardCount boardCount;
+    private Board board;
     private Time time = new Time();
 
     public Game() {
         // =========================================
-        // EXAMPLE GAME/SIMULATION STATE
+        // GAME SETUP
         // =========================================
 
         player = new Player(new Position(0, 0), new Size(1, 1));
@@ -26,14 +26,14 @@ public class Game {
         // Places the default player position into tracking
         history.save(player.getPosition());
         // number of rows and columns
-        boundary = new Boundary(10, 10);
+        boundary = new Boundary(3, 3);
         // Create drawing canvas
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
-        boardCount = new BoardCount(boundary, player.getSize());
-        boardCount.generatePath(0, 0);
-        System.out.println(boardCount.validPath);
-
+        // Loading in puzzle
+        board = new Board(boundary, player.getSize());
+        board.generatePath(0, 0);
+        board.fillBoard();
         time.start();
 
     }
@@ -122,7 +122,7 @@ public class Game {
     private void redrawVisuals() {
         canvas.clear();
 
-        for (PositionNumber posNumb : boardCount.getBoardNumbers()) {
+        for (PositionNumber posNumb : board.getBoardNumbers()) {
             canvas.drawNumber(posNumb);
         }
 
@@ -146,3 +146,4 @@ public class Game {
         canvas.redraw();
     }
 }
+
