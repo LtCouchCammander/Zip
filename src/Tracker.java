@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 public class Tracker {
     private LinkedList<Position> trail;
@@ -19,6 +20,32 @@ public class Tracker {
 
     public LinkedList<Position> seeTrail() {
         return trail;
+    }
+
+    public boolean hasWon(Boundary boundary, Board board) {
+        if (trail.size() == boundary.getGridHeight() * boundary.getGridWidth()) {
+
+            ArrayList<Integer> listOfNumbers = new ArrayList<>();
+            ArrayList<PositionNumber> boardNumbers = board.getBoardNumbers();
+
+            int count = 0;
+            for (Position i : trail) {
+                PositionNumber posNum = boardNumbers.get(count);
+                if (i.X() == posNum.X() && i.Y() == posNum.Y()) {
+                    listOfNumbers.add(posNum.getNumber());
+                    count++;
+                }
+            }
+
+            for (int i = 0; i < listOfNumbers.size(); i++) {
+                if (listOfNumbers.get(i) == listOfNumbers.get(i + 1) -1) {
+                    return true;
+                }
+            }
+
+
+        }
+        return false;
     }
 }
 

@@ -26,7 +26,7 @@ public class Game {
         // Places the default player position into tracking
         history.save(player.getPosition());
         // number of rows and columns
-        boundary = new Boundary(3, 3);
+        boundary = new Boundary(5, 5);
         // Create drawing canvas
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
@@ -34,6 +34,7 @@ public class Game {
         board = new Board(boundary, player.getSize());
         board.generatePath(0, 0);
         board.fillBoard();
+
         time.start();
 
     }
@@ -128,11 +129,11 @@ public class Game {
 
         // Draws previous players moves.
         for (Position prevPosition : history.seeTrail()) {
-            canvas.drawRectangle(prevPosition, player.getSize(), Color.RED, GridCanvas.DrawStyle.FILLED);
+            canvas.drawRectangle(prevPosition, player.getSize(), Color.GREEN, GridCanvas.DrawStyle.FILLED);
         }
 
         // Draws current player
-        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
+        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.BLUE, GridCanvas.DrawStyle.FILLED);
 
         // Enemy
         //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);

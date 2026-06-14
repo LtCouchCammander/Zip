@@ -13,7 +13,7 @@ public class Board {
         this.boundary = boundary;
 
         validPath = new ArrayList<>();
-        visited = new boolean[boundary.getGridHeight()][boundary.getGridWidth()];
+        visited = new boolean[boundary.getGridWidth()][boundary.getGridHeight()];
 
         numbers = new ArrayList<>();
     }

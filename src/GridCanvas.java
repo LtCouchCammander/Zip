@@ -441,8 +441,10 @@ public class GridCanvas extends JPanel {
         for (DrawableText text : texts) {
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Arial", Font.BOLD, 24));
-            int x = text.x * cellSize;
-            int y = text.y * cellSize;
+            int x = text.x * cellSize + cellSize / 3;
+            int y = text.y * cellSize + (2 * cellSize / 3);
+            //int x = text.x * cellSize;
+            //int y = text.y * cellSize;
 
             g2.drawString(String.valueOf(text.numToDraw), x, y);
         }
