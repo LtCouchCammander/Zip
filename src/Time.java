@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Time extends Thread {
-    private ArrayList<Integer> scoreboard;
+    private int elapsedTime = 0;
+    private ArrayList<Integer> scoreboard = new ArrayList<>();
 
     @Override
     public void run() {
-        int elapsedTime = 0;
         while (true) {
             try {
                 Thread.sleep(1000);
@@ -15,6 +15,11 @@ public class Time extends Thread {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void recordTime() {
+        scoreboard.add(elapsedTime);
+        elapsedTime = 0;
     }
 }
 

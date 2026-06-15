@@ -17,35 +17,30 @@ public class Game {
     private Time time = new Time();
 
     public Game() {
-        // =========================================
-        // GAME SETUP
-        // =========================================
-
-        player = new Player(new Position(0, 0), new Size(1, 1));
-        history = new Tracker();
-        // Places the default player position into tracking
-        history.save(player.getPosition());
-        // number of rows and columns
-        boundary = new Boundary(5, 5);
-        // Create drawing canvas
-        canvas = new GridCanvas(boundary, 50, "ZIP!");
-        canvas.showInWindow();
-        // Loading in puzzle
-        board = new Board(boundary, player.getSize());
-        board.generatePath(0, 0);
-        board.fillBoard();
-
-        time.start();
 
     }
 
     public void run() {
+        // Sets up game
+        setUpGame();
+        // Starts the timer for the game.
+        time.start();
 
         // =========================================
         // LOOP TO UPDATE GAME STATE EACH FRAME
         // =========================================
 
         while (true) {
+            // =========================================
+            // PART 0: CHECK IF GAME IS WON
+            // =========================================
+            if (history.hasWon(boundary, board)) {
+                time.recordTime();
+                break;
+            }
+
+
+
             // =========================================
             // PART 1: UPDATE GAME STATE (LOGIC ONLY)
             // =========================================
@@ -66,13 +61,29 @@ public class Game {
                 } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         }
+        run();
     }
 
     // Originally tried stacks (wouldn't really work well since the program redraws all the time, and you can only read off the top).
     // Thought about using array lists to store positions but thought that would take too much work.
     // Going to use linked lists instead with copying the position object... or at least its actual data/positions.
+
+    public void setUpGame() {
+        player = new Player(new Position(0, 0), new Size(1, 1));
+        history = new Tracker();
+        // Places the default player position into tracking
+        history.save(player.getPosition());
+        // number of rows and columns
+        boundary = new Boundary(5, 5);
+        // Create drawing canvas
+        canvas = new GridCanvas(boundary, 50, "ZIP!");
+        canvas.showInWindow();
+        // Loading in puzzle
+        board = new Board(boundary, player.getSize());
+        board.generatePath(0, 0);
+        board.fillBoard();
+    }
 
     private void updateGameState() {
         // get input
