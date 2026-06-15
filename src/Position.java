@@ -26,6 +26,4 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-
 }
-

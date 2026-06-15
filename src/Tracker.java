@@ -23,6 +23,7 @@ public class Tracker {
     }
 
     public boolean hasWon(Boundary boundary, Board board) {
+        // lul, win function has a bug in it atm. You can just fill all the squares to win.
         if (trail.size() == boundary.getGridHeight() * boundary.getGridWidth()) {
 
             ArrayList<Integer> listOfNumbers = new ArrayList<>();
@@ -37,15 +38,12 @@ public class Tracker {
                 }
             }
 
-            for (int i = 0; i < listOfNumbers.size(); i++) {
+            for (int i = 0; i < listOfNumbers.size() - 1; i++) {
                 if (listOfNumbers.get(i) == listOfNumbers.get(i + 1) -1) {
                     return true;
                 }
             }
-
-
         }
         return false;
     }
 }
-

@@ -217,6 +217,7 @@ public class GridCanvas extends JPanel {
         texts.clear();
     }
 
+
     /**
      * Redraws the screen.
      */
@@ -235,6 +236,10 @@ public class GridCanvas extends JPanel {
         window.setVisible(true);
         window.setFocusable(true);
         window.requestFocusInWindow();
+    }
+
+    public void closeWindow() {
+        window.dispose();
     }
 
     // =====================================================
@@ -547,4 +552,3 @@ public class GridCanvas extends JPanel {
         }
     }
 }
-

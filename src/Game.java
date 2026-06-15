@@ -17,12 +17,10 @@ public class Game {
     private Time time = new Time();
 
     public Game() {
-
+        // Moved constructor into dedicated game setup method since after a game finished I wanted to be able to re-run what was current in the constructor
     }
 
     public void run() {
-        // Sets up game
-        setUpGame();
         // Starts the timer for the game.
         time.start();
 
@@ -31,38 +29,45 @@ public class Game {
         // =========================================
 
         while (true) {
-            // =========================================
-            // PART 0: CHECK IF GAME IS WON
-            // =========================================
-            if (history.hasWon(boundary, board)) {
-                time.recordTime();
-                break;
-            }
+            // Sets up game
+            setUpGame();
+
+            boolean status = true;
+            while (status) {
+                // =========================================
+                // PART 0: CHECK IF GAME IS WON
+                // =========================================
+                if (history.hasWon(boundary, board)) {
+                    time.recordTime();
+                    status = false;
+                    canvas.closeWindow();
+                    continue;
+                }
 
 
 
-            // =========================================
-            // PART 1: UPDATE GAME STATE (LOGIC ONLY)
-            // =========================================
-            updateGameState();
+                // =========================================
+                // PART 1: UPDATE GAME STATE (LOGIC ONLY)
+                // =========================================
+                updateGameState();
 
 
-            // -------------------------------------
-            // PART 2: REDRAW SCREEN (VISUALS ONLY)
-            // -------------------------------------
-            redrawVisuals();
+                // -------------------------------------
+                // PART 2: REDRAW SCREEN (VISUALS ONLY)
+                // -------------------------------------
+                redrawVisuals();
 
 
-            // -------------------------------------
-            // PART 3: PAUSE MOMENTARILY EVERY LOOP
-            // -------------------------------------
-            try {
-                Thread.sleep(100);
+                // -------------------------------------
+                // PART 3: PAUSE MOMENTARILY EVERY LOOP
+                // -------------------------------------
+                try {
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                    throw new RuntimeException(e);
+                }
             }
         }
-        run();
     }
 
     // Originally tried stacks (wouldn't really work well since the program redraws all the time, and you can only read off the top).
@@ -75,7 +80,7 @@ public class Game {
         // Places the default player position into tracking
         history.save(player.getPosition());
         // number of rows and columns
-        boundary = new Boundary(5, 5);
+        boundary = new Boundary(6, 6);
         // Create drawing canvas
         canvas = new GridCanvas(boundary, 50, "ZIP!");
         canvas.showInWindow();
@@ -90,22 +95,7 @@ public class Game {
         inputState = canvas.getInputState();
 
         // respond to input for player
-        /*
-        if (inputState.isLeftPressed()) {
-            player.moveLeft();
-        }
-        if (inputState.isRightPressed()) {
-            player.moveRight(boundary);
-        }
-        if (inputState.isUpPressed()) {
-            player.moveUp();
-        }
-        if (inputState.isDownPressed()) {
-            player.moveDown(boundary);
-        }
-
-         */
-        // Use of if else if prevents diagonal movement.
+        // Use of if, else-if prevents diagonal movement.
         if (inputState.isLeftPressed()) {
             player.moveLeft(history);
         } else if (inputState.isRightPressed()) {
@@ -115,20 +105,6 @@ public class Game {
         } else if (inputState.isDownPressed()) {
             player.moveDown(boundary, history);
         }
-        // Saves new position after the move.
-
-
-        // logic to move enemy automatically
-        //enemy.moveLeft(boundary);
-        // Example of creating an ArrayList of coins
-        /*
-        coinPositions = new ArrayList<Position>();
-        coinPositions.add(new Position(1, 1));
-        coinPositions.add(new Position(8, 5));
-        coinPositions.add(new Position(11, 5));
-        coinPositions.add(new Position(14, 5));
-
-         */
     }
 
     private void redrawVisuals() {
@@ -146,16 +122,6 @@ public class Game {
         // Draws current player
         canvas.drawRectangle(player.getPosition(), player.getSize(), Color.BLUE, GridCanvas.DrawStyle.FILLED);
 
-        // Enemy
-        //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);
-
-        // Drawing Coins from an ArrayList
-        //canvas.drawOvals(coinPositions, new Size(1, 1), Color.YELLOW, GridCanvas.DrawStyle.FILLED);
-
-        // Line example
-        //canvas.drawLine(new Position(0, 0), new Position(8, 5), Color.BLACK);
-
         canvas.redraw();
     }
 }
-

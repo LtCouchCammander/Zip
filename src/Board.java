@@ -26,10 +26,12 @@ public class Board {
             validPath.add(new Position(x, y));
         }
 
+        /* Troubleshooting to show path finding.
         for (Position i : validPath) {
             System.out.print("[" + i.X() + ", " + i.Y() + "]");
         }
         System.out.println();
+         */
 
         // Checks to see if the path is already complete (base case)
         if (validPath.size() == boundary.getGridWidth() * boundary.getGridHeight()) {
@@ -84,24 +86,16 @@ public class Board {
             }
             currentCount++;
         }
+        /* Troubleshooting to show positions of chosen numbers to be on the board.
         System.out.println();
         System.out.println();
         for (PositionNumber i : numbers) {
             System.out.print(i.getNumber() + "[" + i.X() + ", " + i.Y() + "]");
         }
+         */
     }
 
     public ArrayList<PositionNumber> getBoardNumbers() {
         return numbers;
     }
-
-
-
-
-
-
-
-
-
 }
-
