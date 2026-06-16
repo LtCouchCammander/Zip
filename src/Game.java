@@ -10,55 +10,86 @@ public class Game {
     private InputState inputState;
     // Grid Boundary (i assume)
     private Boundary boundary;
-
     private Player player;
     private ArrayList<Position> coinPositions;
+    private Tracker history;
+    private Board board;
+    private Time time = new Time();
 
     public Game() {
-        // =========================================
-        // EXAMPLE GAME/SIMULATION STATE
-        // =========================================
-
-        player = new Player(new Position(0, 0), new Size(1, 1));
-
-        // number of rows and columns
-        boundary = new Boundary(10, 10);
-
-        // Create drawing canvas
-        canvas = new GridCanvas(boundary, 50, "ZIP!");
-        canvas.showInWindow();
+        // Moved constructor into dedicated game setup method since after a game finished I wanted to be able to re-run what was current in the constructor
     }
 
     public void run() {
+        // Starts the timer for the game.
+        time.start();
 
         // =========================================
         // LOOP TO UPDATE GAME STATE EACH FRAME
         // =========================================
 
         while (true) {
+            // Sets up game
+            setUpGame();
 
-            // =========================================
-            // PART 1: UPDATE GAME STATE (LOGIC ONLY)
-            // =========================================
-            updateGameState();
+            boolean status = true;
+            while (status) {
+                // =========================================
+                // PART 0: CHECK IF GAME IS WON
+                // =========================================
+                if (history.hasWon(boundary, board)) {
+                    time.recordTime();
+                    time.resetTime();
+                    time.printSortedScoreboard();
+                    status = false;
+                    canvas.closeWindow();
+                    continue;
+                }
 
 
-            // -------------------------------------
-            // PART 2: REDRAW SCREEN (VISUALS ONLY)
-            // -------------------------------------
-            redrawVisuals();
+
+                // =========================================
+                // PART 1: UPDATE GAME STATE (LOGIC ONLY)
+                // =========================================
+                updateGameState();
 
 
-            // -------------------------------------
-            // PART 3: PAUSE MOMENTARILY EVERY LOOP
-            // -------------------------------------
-            try {
-                Thread.sleep(100);
+                // -------------------------------------
+                // PART 2: REDRAW SCREEN (VISUALS ONLY)
+                // -------------------------------------
+                redrawVisuals();
+
+
+                // -------------------------------------
+                // PART 3: PAUSE MOMENTARILY EVERY LOOP
+                // -------------------------------------
+                try {
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                    throw new RuntimeException(e);
+                }
             }
-
         }
+    }
+
+    // Originally tried stacks (wouldn't really work well since the program redraws all the time, and you can only read off the top).
+    // Thought about using array lists to store positions but thought that would take too much work.
+    // Going to use linked lists instead with copying the position object... or at least its actual data/positions.
+
+    public void setUpGame() {
+        player = new Player(new Position(0, 0), new Size(1, 1));
+        history = new Tracker();
+        // Places the default player position into tracking
+        history.save(player.getPosition());
+        // number of rows and columns
+        boundary = new Boundary(6, 6);
+        // Create drawing canvas
+        canvas = new GridCanvas(boundary, 50, "ZIP!");
+        canvas.showInWindow();
+        // Loading in puzzle
+        board = new Board(boundary, player.getSize());
+        board.generatePath(0, 0);
+        board.fillBoard();
     }
 
     private void updateGameState() {
@@ -66,47 +97,32 @@ public class Game {
         inputState = canvas.getInputState();
 
         // respond to input for player
+        // Use of if, else-if prevents diagonal movement.
         if (inputState.isLeftPressed()) {
-            player.moveLeft(boundary);
+            player.moveLeft(history);
+        } else if (inputState.isRightPressed()) {
+            player.moveRight(boundary, history);
+        } else if (inputState.isUpPressed()) {
+            player.moveUp(history);
+        } else if (inputState.isDownPressed()) {
+            player.moveDown(boundary, history);
         }
-        if (inputState.isRightPressed()) {
-            player.moveRight(boundary);
-        }
-        if (inputState.isUpPressed()) {
-            player.moveUp(boundary);
-        }
-        if (inputState.isDownPressed()) {
-            player.moveDown(boundary);
-        }
-
-        // logic to move enemy automatically
-        //enemy.moveLeft(boundary);
-
-        // Example of creating an ArrayList of coins
-        /*
-        coinPositions = new ArrayList<Position>();
-        coinPositions.add(new Position(1, 1));
-        coinPositions.add(new Position(8, 5));
-        coinPositions.add(new Position(11, 5));
-        coinPositions.add(new Position(14, 5));
-
-         */
     }
 
     private void redrawVisuals() {
         canvas.clear();
 
-        // Player
-        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.ORANGE, GridCanvas.DrawStyle.FILLED);
+        for (PositionNumber posNumb : board.getBoardNumbers()) {
+            canvas.drawNumber(posNumb);
+        }
 
-        // Enemy
-        //canvas.drawOval(enemy.getPosition(), enemy.getSize(), Color.BLUE, GridCanvas.DrawStyle.OUTLINED);
+        // Draws previous players moves.
+        for (Position prevPosition : history.seeTrail()) {
+            canvas.drawRectangle(prevPosition, player.getSize(), Color.GREEN, GridCanvas.DrawStyle.FILLED);
+        }
 
-        // Drawing Coins from an ArrayList
-        //canvas.drawOvals(coinPositions, new Size(1, 1), Color.YELLOW, GridCanvas.DrawStyle.FILLED);
-
-        // Line example
-        //canvas.drawLine(new Position(0, 0), new Position(8, 5), Color.BLACK);
+        // Draws current player
+        canvas.drawRectangle(player.getPosition(), player.getSize(), Color.BLUE, GridCanvas.DrawStyle.FILLED);
 
         canvas.redraw();
     }
