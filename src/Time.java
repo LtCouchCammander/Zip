@@ -20,9 +20,10 @@ public class Time extends Thread {
     public void recordTime() {
         scoreboard.add(elapsedTime);
         elapsedTime = 0;
-
-
-
-        System.out.println("SCOREBOARD RANKED BEST TO WORST TIMES: " + scoreboard);
+        scoreboard.sort(null);
+        System.out.println("SCOREBOARD RANKED BEST TO WORST TIMES: ");
+        for (int i : scoreboard) {
+            System.out.println("1. " + i + "s");
+        }
     }
 }
