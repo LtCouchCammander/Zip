@@ -39,6 +39,8 @@ public class Game {
                 // =========================================
                 if (history.hasWon(boundary, board)) {
                     time.recordTime();
+                    time.resetTime();
+                    time.printSortedScoreboard();
                     status = false;
                     canvas.closeWindow();
                     continue;

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 public class Board {
     private ArrayList<PositionNumber> numbers;
     private Boundary boundary;
-    private Size size;
     private ArrayList<Position> validPath;
     private boolean[][] visited;
 
     public Board(Boundary boundary, Size size) {
-        this.size = size;
         this.boundary = boundary;
 
         validPath = new ArrayList<>();

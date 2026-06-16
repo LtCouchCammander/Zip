@@ -19,7 +19,13 @@ public class Time extends Thread {
 
     public void recordTime() {
         scoreboard.add(elapsedTime);
+    }
+
+    public void resetTime() {
         elapsedTime = 0;
+    }
+
+    public void printSortedScoreboard() {
         scoreboard.sort(null);
         System.out.println("SCOREBOARD RANKED BEST TO WORST TIMES: ");
         for (int i : scoreboard) {
